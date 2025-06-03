@@ -146,6 +146,21 @@ class PlayerWiz (Player): #Маг
         print(f"Вы использовали заклинание 'Аэромантия'. Нанесли боссу урона - {total_damage}")
         return {"damage": total_damage}  # Возвращаем урон
                     
+class PlayerBand(Player): #Разбойник
+    def __init__(self):
+        super().__init__()
+        self.skill = 4
+        self.ability_name = "Керсель"
+        self.magic = 2
+        self.max_magic = self.magic
+        self.dodge = 1
+    def player_abilities(self):
+        self.hp -= 2
+        total_damage = 20
+        self.money += 2
+        self.magic -= 1
+        print(f"Вы использовали способность 'Джинада' и украли 2 монеты у босса. Нанесли урона - {total_damage}")
+        return {"damage": total_damage}
 
 class PlayerFort (Player): #Везунчик
     def __init__(self):
@@ -169,15 +184,15 @@ class PlayerFort (Player): #Везунчик
 def choose_playerclass() :
     x = -1
 
-    while x != 1 or x!= 2 or x!=3:
+    while x != 1 or x!= 2 or x!=3 or x != 4:
         try:
-            x = int(input("Выберите свой класс. 1 - класс Воин. 2 - класс Маг. 3 - класс Везунчик."))
-            if x not in (1,2,3):
-                print("Пожалуйста, введите число от 1 до 3")
+            x = int(input("Выберите свой класс. 1 - класс Воин. 2 - класс Маг. 3 - класс Везунчик. 3 - класс Разбойник."))
+            if x not in (1,2,3,4):
+                print("Пожалуйста, введите число от 1 до 4")
                 continue
             break
         except ValueError:
-            print("Пожалуйста, введите число от 1 до 3")
+            print("Пожалуйста, введите число от 1 до 4")
     if x == 1:
         print("Вы выбрали класс воин")
         return PlayerWar() #Выбор класса воин
@@ -187,3 +202,6 @@ def choose_playerclass() :
     elif x == 3:
         print("Вы выбрали класс везунчик")
         return PlayerFort() #Выбор класса везунчик
+    elif x == 4:
+        print("Вы выбрали класс разбойник")
+        return PlayerBand() #Выбор класса разбойник
